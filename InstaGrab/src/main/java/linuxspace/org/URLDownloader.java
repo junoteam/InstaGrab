@@ -7,18 +7,18 @@ import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 
-public class Downloader {
+public class URLDownloader {
 
-	private static Downloader donwloader;
+	private static URLDownloader donwloader;
 
-	private Downloader() {
+	private URLDownloader() {
 
 	}
 
-	public static Downloader getInstance() {
+	public static URLDownloader getInstance() {
 
 		if (donwloader == null) {
-			donwloader = new Downloader();
+			donwloader = new URLDownloader();
 		}
 
 		return donwloader;

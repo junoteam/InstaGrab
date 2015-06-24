@@ -6,10 +6,10 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class LinkParser {
+public class URLParser {
 
 	// Constructor
-	public LinkParser() {
+	public URLParser() {
 
 	}
 
@@ -27,7 +27,7 @@ public class LinkParser {
 			// print ready URL to pic
 			System.out.println(urlToPic);
 
-			Downloader.getInstance().getImageFile(urlToPic);
+			URLDownloader.getInstance().getImageFile(urlToPic);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

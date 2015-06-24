@@ -10,12 +10,12 @@ import javax.swing.JTextField;
 
 public class Application extends JFrame {
 	
-	private LinkParser parser;
+	private URLParser parser;
 	private JTextField fldInsertLinlk;
 
 	public Application() {
 		this.initUI();
-		this.parser = new LinkParser();
+		this.parser = new URLParser();
 		
 	}
 
