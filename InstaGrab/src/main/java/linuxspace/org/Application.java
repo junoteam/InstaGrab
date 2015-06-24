@@ -2,6 +2,7 @@ package linuxspace.org;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -35,7 +36,14 @@ public class Application extends JFrame {
 		
 		btnGetLink.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent event) {
-		        parser.mainParser(fldInsertLinlk.getText());
+		    	new Thread(new Runnable() {
+					
+					public void run() {
+						parser.mainParser(fldInsertLinlk.getText());
+						
+					}
+				}).run();;
+		        
 		  }
 		});
 		

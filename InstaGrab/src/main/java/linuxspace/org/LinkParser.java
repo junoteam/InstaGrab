@@ -1,38 +1,39 @@
 package linuxspace.org;
 
 import java.io.IOException;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 public class LinkParser {
 
-	//Constructor
+	// Constructor
 	public LinkParser() {
 
 	}
 
-	//Main HTML parser
+	// Main HTML parser
 	public void mainParser(String link) {
-		
+
 		try {
 			Document doc = Jsoup.connect(link).get();
 			Elements picTag = doc.select("meta[property=og:image]");
-			String urlToPic = picTag.get(0).attr("content");
-			
-			//print raw string
+			final String urlToPic = picTag.get(0).attr("content");
+
+			// print raw string
 			System.out.println(picTag.toString());
-			
-			//print ready URL to pic
+
+			// print ready URL to pic
 			System.out.println(urlToPic);
-			
+
+			Downloader.getInstance().getImageFile(urlToPic);
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
-	
 
 }
