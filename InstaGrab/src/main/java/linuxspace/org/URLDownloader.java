@@ -14,7 +14,8 @@ public class URLDownloader {
 	private URLDownloader() {
 
 	}
-
+	
+	// Singltone created for downloader
 	public static URLDownloader getInstance() {
 
 		if (donwloader == null) {
@@ -28,6 +29,8 @@ public class URLDownloader {
 		
 		System.out.println(url);
 		try {
+			
+			//Get image from URL and save to local directory
 			FileUtils.copyURLToFile(new URL(url), new File("./bar.jpg"));
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
