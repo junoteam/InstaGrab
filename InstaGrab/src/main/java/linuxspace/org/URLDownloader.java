@@ -17,8 +17,6 @@ public class URLDownloader {
 	}
 
 	// Singltone created for downloader
-	// Everytime we download picture, we only should get instane
-	// but not to create object 
 	public static URLDownloader getInstance() {
 
 		if (donwloader == null) {
