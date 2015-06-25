@@ -30,11 +30,33 @@ public class URLDownloader {
 
 		System.out.println(url);
 		try {
+			
+			File dirToSavePics = new File("pics");
+			if (!dirToSavePics.exists()) {
+				System.out.println("Creating new directory: " + dirToSavePics);
+				boolean result = false;
+				
+				try {
+					dirToSavePics.mkdir();
+					result = true;
+				}
+				
+				catch (SecurityException se){
+			        //handle it
+			    }   
+				
+				if (result) {
+					System.out.println("Directory created");
+				}
+			}
 
-			// Get image from URL and save to local directory
-			// TO DO - need to create noraml names
-			// TO DO - need to save to <currentDir>/pics
-			FileUtils.copyURLToFile(new URL(url), new File("./bar.jpg"));
+			
+			FileUtils.copyURLToFile(new URL(url), new File("dirToSavePics/bar.jpg"));
+			
+			// get current dir
+			System.out.println("Working Directory = " + System.getProperty("user.dir"));
+
+			
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
