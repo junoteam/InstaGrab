@@ -14,25 +14,24 @@ public class URLParser {
 	}
 
 	// Main HTML parser
-	public void mainParser(String link) {
+	public String mainParser(String link) {
+
+		String urlToPic = "";
 
 		try {
 			Document doc = Jsoup.connect(link).get();
 			Elements picTag = doc.select("meta[property=og:image]");
-			final String urlToPic = picTag.get(0).attr("content");
-
-			// print raw string
-			System.out.println(picTag.toString());
+			urlToPic = picTag.get(0).attr("content");
 
 			// print ready URL to pic
-			System.out.println(urlToPic);
-
-			URLDownloader.getInstance().getImageFile(urlToPic);
+			System.out.println("\nprint ready URL to pic" + urlToPic);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+		return urlToPic;
 
 	}
 

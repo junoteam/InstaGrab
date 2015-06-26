@@ -1,8 +1,13 @@
 package linuxspace.org;
 
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -10,17 +15,21 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Application extends JFrame {
 
 	private URLParser parser;
 	private JTextField fldInsertLinlk;
+	private Font font;
 
 	public Application() {
+		this.font = new Font("Segoe UI", Font.PLAIN, 12);
 		this.initUI();
 		this.parser = new URLParser();
-
 	}
 
 	public void initUI() {
@@ -37,30 +46,51 @@ public class Application extends JFrame {
 		// Button create
 		JButton btnGetLink = new JButton("Get Photo");
 		btnGetLink.setBounds(172, 143, 89, 23);
+		btnGetLink.setFont(font);
 
 		// Create label
-		JLabel lblEnterLinkTo = new JLabel("Insert link to pic..");
+		JLabel lblEnterLinkTo = new JLabel("Insert link to picture here");
 		lblEnterLinkTo.setBounds(158, 77, 118, 14);
+		lblEnterLinkTo.setFont(font);
+
+		final DefaultListModel model = new DefaultListModel();
+		
+		// create scroll conainer
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(89, 189, 255, 251);
 
 		// create list
-		JList list = new JList();
-		list.setBounds(89, 196, 255, 242);
-
+		JList list = new JList(model);
+		list.setBounds(89, 189, 255, 251);
+		scrollPane.setViewportView(list);
+		scrollPane.setVisible(true);
+				
 		// Create menu bar
 		JMenuBar bar = new JMenuBar();
 		bar.setBounds(0, 0, 434, 21);
 
+		// open button
+		JButton btnOpenPicture = new JButton("Open pic");
+		btnOpenPicture.setBounds(172, 463, 89, 23);
+		btnOpenPicture.setFont(font);
+
 		btnGetLink.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent event) {
-				new Thread(new Runnable() {
 
-					public void run() {
-						parser.mainParser(fldInsertLinlk.getText());
+				if (fldInsertLinlk.getText().isEmpty()) {
+					return;
+				}
 
-					}
-				}).run();
-				;
+				// Parce Instagram's HTML
+				String getUrlFromParser = parser.mainParser(fldInsertLinlk
+						.getText());
 
+				// Download picture
+				String fileName = URLDownloader.getInstance().getImageFile(
+						getUrlFromParser);
+
+				model.add(0, fileName);
+ 
 			}
 		});
 
@@ -74,7 +104,10 @@ public class Application extends JFrame {
 		panel.add(fldInsertLinlk);
 		panel.add(lblEnterLinkTo);
 		panel.add(list);
+		panel.add(scrollPane);
 		panel.add(bar);
+		panel.add(btnOpenPicture);
+
 	}
 
 	public static void main(String[] args) {
